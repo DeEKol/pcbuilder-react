@@ -2,22 +2,35 @@ import React, { useContext, useEffect, useState } from 'react';
 import CpuService from '../API/CpuService';
 import { CurrentObject } from '../context';
 
-const CpuForm = ({createCpu}) => {
-    const [cpu, setCpu] = useState({ id: '', description: '', buy: '', sale: '', maker: '', name: '', specification: '', cores: '', flows: '', frequency: '', socket: '' });
+//todo высчитывать id для добавления cpu без обращения к серверу
 
+const CpuForm = ({createCpu}) => {
     const {objectForm, setObjectForm} = useContext(CurrentObject);
 
+    const [cpu, setCpu] = useState({ id: '', description: '', buy: '', sale: '', maker: '', name: '', specification: '', cores: '', flows: '', frequency: '', socket: '' });
+
     useEffect(() => {
-        setCpu(objectForm)
+        setCpu(objectForm);
+        console.log(cpu.id);
+        console.log(objectForm.id);
     }, [objectForm])
 
     const submitHandler = async (e) => {
         e.preventDefault();
 
         const newCpu = { ...cpu }
-        await CpuService.create(newCpu);
-        createCpu(newCpu);
-        setCpu({ description: '', buy: '', sale: '', maker: '', name: '', specification: '', cores: '', flows: '', frequency: '', socket: '' });
+    //todo: сделать полиморфизм update, create
+        if (objectForm.id !== undefined && objectForm.id !== cpu.id) {
+            await CpuService.create(newCpu).then(response => {
+                createCpu(response.data);
+            })
+        } else {
+            await CpuService.updateById(cpu.id, newCpu).then(response => {
+                createCpu(response.data);
+            })
+        }
+
+        setCpu({ id:'', description: '', buy: '', sale: '', maker: '', name: '', specification: '', cores: '', flows: '', frequency: '', socket: '' });
       }
 
     return (

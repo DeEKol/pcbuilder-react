@@ -2,11 +2,17 @@ import React, { useContext } from 'react';
 import CpuService from '../API/CpuService';
 import { CurrentObject } from '../context';
 
-const CpuList = ({allCpu}) => {
+const CpuList = ({allCpu, removeCpu}) => {
     const {objectForm, setObjectForm} = useContext(CurrentObject);
 
     const update = (cpu) => {
         setObjectForm(cpu);
+    }
+
+    const remove = async (id) => {
+        await CpuService.deleteById(id);
+    //todo: Сделать проверку статуса перед удалением
+        removeCpu(id);
     }
 
     return (
@@ -22,7 +28,7 @@ const CpuList = ({allCpu}) => {
                 {cpu.buy}, Продажа=
                 {cpu.sale}, {cpu.creationDate} 
                 [{cpu.description}]
-                <button onClick={async () => await CpuService.deleteById(cpu.id)}>Удалить</button>
+                <button onClick={() => remove(cpu.id)}>Удалить</button>
                 <button onClick={() => update(cpu)}>Изменить</button>
                 </div>
             )
