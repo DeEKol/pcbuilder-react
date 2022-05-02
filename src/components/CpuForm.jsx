@@ -11,16 +11,12 @@ const CpuForm = ({createCpu}) => {
 
     useEffect(() => {
         setCpu(objectForm);
-        console.log(cpu.id);
-        console.log(objectForm.id);
     }, [objectForm])
 
     const submitHandler = async (e) => {
         e.preventDefault();
-
         const newCpu = { ...cpu }
-    //todo: сделать полиморфизм update, create
-        if (objectForm.id !== undefined && objectForm.id !== cpu.id) {
+        if (objectForm.id === undefined || objectForm.id !== cpu.id) {
             await CpuService.create(newCpu).then(response => {
                 createCpu(response.data);
             })
@@ -95,7 +91,7 @@ const CpuForm = ({createCpu}) => {
                 value={cpu.socket || ''}
                 onChange={e => setCpu({...cpu, socket: e.target.value})}
             />
-            <button type="submit">Add</button>
+            <button type="submit">{cpu.id ? `Update CPU id:${cpu.id}` : 'Add'}</button>
         </form>
     )
 }
