@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import CpuService from "../API/CpuService";
 import CpuForm from "../components/CpuForm";
 import CpuList from "../components/CpuList";
-import SortSelect from "../components/UI/navbar/select/SortSelect";
+import SortSelect from "../components/UI/select/SortSelect";
 import { useFetching } from "../hooks/useFetching";
 
 const Cpu = () => {
@@ -34,6 +34,7 @@ const Cpu = () => {
 
     //Сортировка по
     const sorting = (s) => {
+        console.log('Sort');
         setSortSelect(s);
 
         if (Number.isInteger(allCpu[0][s])) {

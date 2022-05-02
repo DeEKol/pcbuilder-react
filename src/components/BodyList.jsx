@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import CpuService from '../API/CpuService';
+import BodyService from '../API/BodyService';
 import { CurrentObject } from '../context';
 
-const CpuList = ({allCpu, removeCpu}) => {
+const BodyList = ({bodies, removeBody}) => {
     const {objectForm, setObjectForm} = useContext(CurrentObject);
 
     const update = (e) => {
@@ -10,21 +10,19 @@ const CpuList = ({allCpu, removeCpu}) => {
     }
 
     const remove = async (id) => {
-        await CpuService.deleteById(id);
+        await BodyService.deleteById(id);
     //todo: Сделать проверку статуса перед удалением
-        removeCpu(id);
+        removeBody(id);
     }
 
     return (
         <div>
-            {allCpu.map((e, index) => {
+            {bodies.map((e, index) => {
             return (
                 <div key={index}>id:{e.id}, 
-                Процессор: {e.maker} {e.name} 
+                Корпус: {e.maker} {e.name} 
                 [{e.specification}] 
-                [LGA {e.socket}, {e.cores}, 
-                {e.flows}х  
-                {e.frequency}ГГц] Покупка=
+                [Размер: {e.proportions}, размер бп: {e.puProportions}] Покупка=
                 {e.buy}, Продажа=
                 {e.sale}, {e.creationDate} 
                 [{e.description}]
@@ -37,4 +35,4 @@ const CpuList = ({allCpu, removeCpu}) => {
     )
 }
 
-export default CpuList;
+export default BodyList;

@@ -2,8 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import CpuService from '../API/CpuService';
 import { CurrentObject } from '../context';
 
-//todo высчитывать id для добавления cpu без обращения к серверу
-
 const CpuForm = ({createCpu}) => {
     const {objectForm, setObjectForm} = useContext(CurrentObject);
 
