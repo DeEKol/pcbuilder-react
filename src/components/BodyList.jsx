@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import BodyService from '../API/BodyService';
 import { CurrentObject } from '../context';
 
-const BodyList = ({bodies, removeBody}) => {
+const BodyList = ({elements, removeElement}) => {
     const {objectForm, setObjectForm} = useContext(CurrentObject);
 
     const update = (e) => {
@@ -12,12 +12,19 @@ const BodyList = ({bodies, removeBody}) => {
     const remove = async (id) => {
         await BodyService.deleteById(id);
     //todo: Сделать проверку статуса перед удалением
-        removeBody(id);
+        removeElement(id);
     }
 
+    if(!elements.length) {
+        return (
+            <h1>
+                Элементы не найдены!
+            </h1>
+        )
+    }
     return (
         <div>
-            {bodies.map((e, index) => {
+            {elements.map((e, index) => {
             return (
                 <div key={index}>id:{e.id}, 
                 Корпус: {e.maker} {e.name} 

@@ -1,59 +1,35 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import CpuService from "../API/CpuService";
 import CpuForm from "../components/CpuForm";
 import CpuList from "../components/CpuList";
 import SortSelect from "../components/UI/select/SortSelect";
+import { CurrentObject } from "../context";
+import { useElements } from "../hooks/useElements";
 import { useFetching } from "../hooks/useFetching";
 
 const Cpu = () => {
-    const [allCpu, setAllCpu] = useState([]);
-    const [sortSelect, setSortSelect] = useState('');
-
-    const [fetchCpu, isCpuLoading, cpuError] = useFetching(async () => {
-        const response = await CpuService.getAll();
-        setAllCpu(response.data);
-    })
-
-    const createCpu = (newCpu) => {
-        const findIndex = allCpu.findIndex(item => item.id === newCpu.id);
-        if (findIndex === -1) {
-            setAllCpu([...allCpu, newCpu]);
-        } else {
-            allCpu[findIndex] = newCpu;
-            setAllCpu([...allCpu]);
-        }
-    }
-
-    const removeCpu = (id) => {
-        setAllCpu(allCpu.filter(cpu => cpu.id !== id));
-    }
+    const {objectForm, setObjectForm} = useContext(CurrentObject);
 
     useEffect(() => {
-        fetchCpu();
+        fetch();
+        setObjectForm({});
     }, []);
 
-    //Сортировка по
-    const sorting = (s) => {
-        console.log('Sort');
-        setSortSelect(s);
+    const [fetch, isLoading, error] = useFetching(async () => {
+        const response = await CpuService.getAll();
+        setElements(response.data);
+    })
 
-        if (Number.isInteger(allCpu[0][s])) {
-        //Сортировка чисел (id)
-            setAllCpu([...allCpu].sort((a, b) => a[s] - b[s]));
-        } else {
-        //Сортировка строк (maker)
-            setAllCpu([...allCpu].sort((a, b) => a[s].localeCompare(b[s])));
-        }
-    }
+    const [elements, setElements, sortSelect, setSortSelect, createElement, removeElement, sorting] = useElements();
 
   return (
     <div className="App">
         <h3>Процессоры</h3>
 
-        <CpuForm createCpu={createCpu}/>
+        <CpuForm createElement={createElement}/>
 
-        {cpuError &&
-            <h1>Произошла ошибка ${cpuError}</h1>
+        {error &&
+            <h1>Произошла ошибка ${error}</h1>
         }
 
         <hr/>
@@ -70,14 +46,11 @@ const Cpu = () => {
         />
         </div>
         
-        {allCpu.length //todo: пока идет загрузка скрывать данную надпись
+        {isLoading
             ?
-            <CpuList allCpu={allCpu} removeCpu={removeCpu} title="CPU"/>
+            <h1>Загрузка</h1>
             :
-            <h1>CPU не найдены!</h1>
-        }
-        {isCpuLoading &&
-            <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}>Загрузка</div>
+            <CpuList elements={elements} removeElement={removeElement}/>
         }
     </div>
   );

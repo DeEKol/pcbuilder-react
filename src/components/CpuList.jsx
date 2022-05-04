@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import CpuService from '../API/CpuService';
 import { CurrentObject } from '../context';
 
-const CpuList = ({allCpu, removeCpu}) => {
+const CpuList = ({elements, removeElement}) => {
     const {objectForm, setObjectForm} = useContext(CurrentObject);
 
     const update = (e) => {
@@ -12,12 +12,19 @@ const CpuList = ({allCpu, removeCpu}) => {
     const remove = async (id) => {
         await CpuService.deleteById(id);
     //todo: Сделать проверку статуса перед удалением
-        removeCpu(id);
+        removeElement(id);
     }
 
+    if(!elements.length) {
+        return (
+            <h1>
+                Элементы не найдены!
+            </h1>
+        )
+    }
     return (
         <div>
-            {allCpu.map((e, index) => {
+            {elements.map((e, index) => {
             return (
                 <div key={index}>id:{e.id}, 
                 Процессор: {e.maker} {e.name} 

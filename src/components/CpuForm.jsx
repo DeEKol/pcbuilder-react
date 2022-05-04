@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import CpuService from '../API/CpuService';
 import { CurrentObject } from '../context';
 
-const CpuForm = ({createCpu}) => {
+const CpuForm = ({createElement}) => {
     const {objectForm, setObjectForm} = useContext(CurrentObject);
 
     const [cpu, setCpu] = useState({ id: '', description: '', buy: '', sale: '', maker: '', name: '', specification: '', cores: '', flows: '', frequency: '', socket: '' });
@@ -16,11 +16,11 @@ const CpuForm = ({createCpu}) => {
         const newCpu = { ...cpu }
         if (objectForm.id === undefined || objectForm.id !== cpu.id) {
             await CpuService.create(newCpu).then(response => {
-                createCpu(response.data);
+                createElement(response.data);
             })
         } else {
             await CpuService.updateById(cpu.id, newCpu).then(response => {
-                createCpu(response.data);
+                createElement(response.data);
             })
         }
 

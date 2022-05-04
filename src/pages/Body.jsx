@@ -1,56 +1,32 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import BodyService from "../API/BodyService";
 import BodyForm from "../components/BodyForm";
 import BodyList from "../components/BodyList";
 import SortSelect from "../components/UI/select/SortSelect";
+import { CurrentObject } from "../context";
+import { useElements } from "../hooks/useElements";
 import { useFetching } from "../hooks/useFetching";
 
 const Body = () => {
-    const [bodies, setBodies] = useState([]);
-    const [sortSelect, setSortSelect] = useState('');
-
-    const [fetch, isLoading, error] = useFetching(async () => {
-        const response = await BodyService.getAll();
-        setBodies(response.data);
-    })
-
-    const createBody = (newBody) => {
-        const findIndex = bodies.findIndex(item => item.id === newBody.id);
-        if (findIndex === -1) {
-            setBodies([...bodies, newBody]);
-        } else {
-            bodies[findIndex] = newBody;
-            setBodies([...bodies]);
-        }
-    }
-
-    const removeBody = (id) => {
-        setBodies(bodies.filter(body => body.id !== id));
-    }
+    const {objectForm, setObjectForm} = useContext(CurrentObject);
 
     useEffect(() => {
         fetch();
+        setObjectForm({});
     }, []);
 
-    //Сортировка по
-    const sorting = (s) => {
-        console.log('Sort');
-        setSortSelect(s);
+    const [fetch, isLoading, error] = useFetching(async () => {
+        const response = await BodyService.getAll();
+        setElements(response.data);
+    })
 
-        if (Number.isInteger(bodies[0][s])) {
-        //Сортировка чисел (id)
-            setBodies([...bodies].sort((a, b) => a[s] - b[s]));
-        } else {
-        //Сортировка строк (maker)
-            setBodies([...bodies].sort((a, b) => a[s].localeCompare(b[s])));
-        }
-    }
+    const [elements, setElements, sortSelect, setSortSelect, createElement, removeElement, sorting] = useElements();
 
   return (
     <div className="App">
         <h3>Корпуса</h3>
 
-        <BodyForm createBody={createBody}/>
+        <BodyForm createElement={createElement}/>
 
         {error &&
             <h1>Произошла ошибка ${Error}</h1>
@@ -70,14 +46,11 @@ const Body = () => {
         />
         </div>
         
-        {bodies.length //todo: пока идет загрузка скрывать данную надпись
+        {isLoading
             ?
-            <BodyList bodies={bodies} removeBody={removeBody} title="BODY"/>
+            <h1>Загрузка</h1>
             :
-            <h1>Корпуса не найдены!</h1>
-        }
-        {isLoading &&
-            <div style={{display: 'flex', justifyContent: 'center', marginTop: 50}}>Загрузка</div>
+            <BodyList elements={elements} removeElement={removeElement}/>
         }
     </div>
   );

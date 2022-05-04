@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import BodyService from '../API/BodyService';
 import { CurrentObject } from '../context';
 
-const BodyForm = ({createBody}) => {
+const BodyForm = ({createElement}) => {
     const {objectForm, setObjectForm} = useContext(CurrentObject);
 
     const [body, setBody] = useState({ id: '', description: '', buy: '', sale: '', maker: '', name: '', specification: '', proportions: '', puProportions: '' });
@@ -16,11 +16,11 @@ const BodyForm = ({createBody}) => {
         const newBody = { ...body }
         if (objectForm.id === undefined || objectForm.id !== body.id) {
             await BodyService.create(newBody).then(response => {
-                createBody(response.data);
+                createElement(response.data);
             })
         } else {
             await BodyService.updateById(body.id, newBody).then(response => {
-                createBody(response.data);
+                createElement(response.data);
             })
         }
 
