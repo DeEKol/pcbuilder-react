@@ -1,31 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import CpuService from '../API/CpuService';
-import { CurrentObject } from '../context';
+import { useSubmitForm } from '../hooks/useSubmitForm';
 
 const CpuForm = ({createElement}) => {
-    const {objectForm, setObjectForm} = useContext(CurrentObject);
-
     const [cpu, setCpu] = useState({ id: '', description: '', buy: '', sale: '', maker: '', name: '', specification: '', cores: '', flows: '', frequency: '', socket: '' });
 
-    useEffect(() => {
-        setCpu(objectForm);
-    }, [objectForm])
-
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        const newCpu = { ...cpu }
-        if (objectForm.id === undefined || objectForm.id !== cpu.id) {
-            await CpuService.create(newCpu).then(response => {
-                createElement(response.data);
-            })
-        } else {
-            await CpuService.updateById(cpu.id, newCpu).then(response => {
-                createElement(response.data);
-            })
-        }
-
-        setCpu({ id:'', description: '', buy: '', sale: '', maker: '', name: '', specification: '', cores: '', flows: '', frequency: '', socket: '' });
-      }
+    const submitHandler = useSubmitForm(cpu, setCpu, CpuService, createElement);
 
     return (
         <form onSubmit={submitHandler}>

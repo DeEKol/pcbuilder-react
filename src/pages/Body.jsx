@@ -1,9 +1,7 @@
-import { useContext, useEffect } from "react";
 import BodyService from "../API/BodyService";
 import BodyForm from "../components/BodyForm";
 import BodyList from "../components/BodyList";
 import SortSelect from "../components/UI/select/SortSelect";
-import { CurrentObject } from "../context";
 import { useElements } from "../hooks/useElements";
 import { useFetching } from "../hooks/useFetching";
 

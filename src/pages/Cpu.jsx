@@ -1,9 +1,7 @@
-import { useContext, useEffect } from "react";
 import CpuService from "../API/CpuService";
 import CpuForm from "../components/CpuForm";
 import CpuList from "../components/CpuList";
 import SortSelect from "../components/UI/select/SortSelect";
-import { CurrentObject } from "../context";
 import { useElements } from "../hooks/useElements";
 import { useFetching } from "../hooks/useFetching";
 

@@ -1,31 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import BodyService from '../API/BodyService';
-import { CurrentObject } from '../context';
+import { useSubmitForm } from '../hooks/useSubmitForm';
 
 const BodyForm = ({createElement}) => {
-    const {objectForm, setObjectForm} = useContext(CurrentObject);
+    const [body, setBody] = useState({ id: '', description: '', buy: '', sale: '', maker: '', name: '', specification: '', proportions: '', buProportions: '' });
 
-    const [body, setBody] = useState({ id: '', description: '', buy: '', sale: '', maker: '', name: '', specification: '', proportions: '', puProportions: '' });
-
-    useEffect(() => {
-        setBody(objectForm);
-    }, [objectForm])
-
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        const newBody = { ...body }
-        if (objectForm.id === undefined || objectForm.id !== body.id) {
-            await BodyService.create(newBody).then(response => {
-                createElement(response.data);
-            })
-        } else {
-            await BodyService.updateById(body.id, newBody).then(response => {
-                createElement(response.data);
-            })
-        }
-
-        setBody({ id:'', description: '', buy: '', sale: '', maker: '', name: '', specification: '', proportions: '', puProportions: '' });
-      }
+    const submitHandler = useSubmitForm(body, setBody, BodyService, createElement);
 
     return (
         <form onSubmit={submitHandler}>
@@ -74,8 +54,8 @@ const BodyForm = ({createElement}) => {
             <input
                 type="text"
                 placeholder="puProportions"
-                value={body.puProportions || ''}
-                onChange={e => setBody({...body, puProportions: e.target.value})}
+                value={body.buProportions || ''}
+                onChange={e => setBody({...body, buProportions: e.target.value})}
             />
             <button type="submit">{body.id ? `Update Body id:${body.id}` : 'Add'}</button>
         </form>

@@ -29,7 +29,7 @@ const BodyList = ({elements, removeElement}) => {
                 <div key={index}>id:{e.id}, 
                 Корпус: {e.maker} {e.name} 
                 [{e.specification}] 
-                [Размер: {e.proportions}, размер бп: {e.puProportions}] Покупка=
+                [Размер: {e.proportions}, размер бп: {e.buProportions}] Покупка=
                 {e.buy}, Продажа=
                 {e.sale}, {e.creationDate} 
                 [{e.description}]
