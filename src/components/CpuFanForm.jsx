@@ -51,7 +51,7 @@ const CpuFanForm = ({createElement}) => {
                 value={cpuFan.tdp || ''}
                 onChange={e => setCpuFan({...cpuFan, tdp: e.target.value})}
             />
-            <button type="submit">{cpuFan.id ? `Update CPU id:${cpuFan.id}` : 'Add'}</button>
+            <button type="submit">{cpuFan.id ? `Update Cpu fan id:${cpuFan.id}` : 'Add'}</button>
         </form>
     )
 }
