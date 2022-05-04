@@ -1,23 +1,25 @@
-import axios from 'axios';
+import Service from '../utils/Service';
 
-export default class PowerUnitService {
+const element = 'powerunit';
+
+export default class CpuService {
     static async getAll() {
-        return await axios.get('https://builderpc.herokuapp.com/api/powerunit');
+        return Service.getAll(element);
     }
 
     static async getById(id) {
-        return await axios.get('https://builderpc.herokuapp.com/api/powerunit/' + id);
+        return Service.getById(element, id);
     }
 
     static async create(object) {
-        return await axios.post('https://builderpc.herokuapp.com/api/powerunit', object);
+        return Service.create(element, object);
     }
 
     static async updateById(id, object) {
-        return await axios.put('https://builderpc.herokuapp.com/api/powerunit/' + id, object);
+        return Service.updateById(element, id, object);
     }
 
     static async deleteById(id) {
-        return await axios.delete('https://builderpc.herokuapp.com/api/powerunit/' + id);
+        return Service.deleteById(element, id);
     }
 }

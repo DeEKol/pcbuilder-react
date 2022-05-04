@@ -1,23 +1,25 @@
-import axios from 'axios';
+import Service from '../utils/Service';
 
-export default class CpuFanService {
+const element = 'cpufan';
+
+export default class CpuService {
     static async getAll() {
-        return await axios.get('https://builderpc.herokuapp.com/api/cpufan');
+        return Service.getAll(element);
     }
 
     static async getById(id) {
-        return await axios.get('https://builderpc.herokuapp.com/api/cpufan/' + id);
+        return Service.getById(element, id);
     }
 
     static async create(object) {
-        return await axios.post('https://builderpc.herokuapp.com/api/cpufan', object);
+        return Service.create(element, object);
     }
 
     static async updateById(id, object) {
-        return await axios.put('https://builderpc.herokuapp.com/api/cpufan/' + id, object);
+        return Service.updateById(element, id, object);
     }
 
     static async deleteById(id) {
-        return await axios.delete('https://builderpc.herokuapp.com/api/cpufan/' + id);
+        return Service.deleteById(element, id);
     }
 }

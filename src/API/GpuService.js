@@ -1,23 +1,25 @@
-import axios from 'axios';
+import Service from '../utils/Service';
 
-export default class GpuService {
+const element = 'gpu';
+
+export default class CpuService {
     static async getAll() {
-        return await axios.get('https://builderpc.herokuapp.com/api/gpu');
+        return Service.getAll(element);
     }
 
     static async getById(id) {
-        return await axios.get('https://builderpc.herokuapp.com/api/gpu/' + id);
+        return Service.getById(element, id);
     }
 
     static async create(object) {
-        return await axios.post('https://builderpc.herokuapp.com/api/gpu', object);
+        return Service.create(element, object);
     }
 
     static async updateById(id, object) {
-        return await axios.put('https://builderpc.herokuapp.com/api/gpu/' + id, object);
+        return Service.updateById(element, id, object);
     }
 
     static async deleteById(id) {
-        return await axios.delete('https://builderpc.herokuapp.com/api/gpu/' + id);
+        return Service.deleteById(element, id);
     }
 }
