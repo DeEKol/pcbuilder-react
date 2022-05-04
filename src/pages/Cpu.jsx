@@ -8,14 +8,7 @@ import { useElements } from "../hooks/useElements";
 import { useFetching } from "../hooks/useFetching";
 
 const Cpu = () => {
-    const {objectForm, setObjectForm} = useContext(CurrentObject);
-
-    useEffect(() => {
-        fetch();
-        setObjectForm({});
-    }, []);
-
-    const [fetch, isLoading, error] = useFetching(async () => {
+    const [isLoading, error] = useFetching(async () => {
         const response = await CpuService.getAll();
         setElements(response.data);
     })
