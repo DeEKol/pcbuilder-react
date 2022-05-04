@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Sorting from '../utils/Sorting';
 
+//Хук возвращает [элементы, функция изменения элементов, сортировка функция изменения сортировки, функция создания элемента, функция удаления элемента, функция сортировки]
+
 export const useElements = () => {
     const [elements, setElements] = useState([]);
     const [sortSelect, setSortSelect] = useState('');

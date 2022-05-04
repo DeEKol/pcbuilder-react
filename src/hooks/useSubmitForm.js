@@ -1,6 +1,9 @@
 import { useContext, useEffect } from "react";
 import { CurrentObject } from "../context";
 
+//Хук принимет (элемент, функция изменения элемента, Сервис класс, функция обратного вызова создания элемента)
+//Возвращает функция отправки
+
 export const useSubmitForm = (element, setElement, service, createElement) => {
     const {objectForm, setObjectForm} = useContext(CurrentObject);
 
