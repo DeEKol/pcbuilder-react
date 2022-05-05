@@ -2,7 +2,7 @@ import Service from '../utils/Service';
 
 const element = 'body';
 
-export default class CpuService {
+export default class BodyService {
     static async getAll() {
         return Service.getAll(element);
     }

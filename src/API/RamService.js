@@ -1,8 +1,8 @@
 import Service from '../utils/Service';
 
-const element = 'gpu';
+const element = 'ram';
 
-export default class GpuService {
+export default class RamService {
     static async getAll() {
         return Service.getAll(element);
     }

@@ -2,7 +2,7 @@ import Service from '../utils/Service';
 
 const element = 'powerunit';
 
-export default class CpuService {
+export default class PowerUnitService {
     static async getAll() {
         return Service.getAll(element);
     }

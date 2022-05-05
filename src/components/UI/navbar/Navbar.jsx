@@ -9,7 +9,8 @@ const Navbar = () => {
             <Link to='/cpu'>Процессоры</Link>
             <Link to='/cpufan'>Процессорные кулеры</Link>
             <Link to='/gpu'>Видеокарты</Link> 
-            <Link to='/powerunit'>Блоки питания</Link>            
+            <Link to='/powerunit'>Блоки питания</Link>  
+            <Link to='/ram'>Оперативная память</Link>            
         </div>
     )
 }
