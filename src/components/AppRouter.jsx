@@ -8,6 +8,7 @@ import Gpu from '../pages/Gpu';
 import PowerUnit from '../pages/PowerUnit';
 import Ram from '../pages/Ram';
 import Storage from '../pages/Storage';
+import Fan from '../pages/Fan';
 
 const AppRouter = () => {
     return (
@@ -20,6 +21,7 @@ const AppRouter = () => {
             <Route exact path='/powerunit' element={<PowerUnit/>} key="/powerunit"/>
             <Route exact path='/ram' element={<Ram/>} key="/ram"/>
             <Route exact path='/storage' element={<Storage/>} key="/storage"/>
+            <Route exact path='/fan' element={<Fan/>} key="/fan"/>
         </Routes>
     )
 }

@@ -11,7 +11,8 @@ const Navbar = () => {
             <Link to='/gpu'>Видеокарты</Link> 
             <Link to='/powerunit'>Блоки питания</Link>  
             <Link to='/ram'>Оперативная память</Link>
-            <Link to='/storage'>Накопители</Link>          
+            <Link to='/storage'>Накопители</Link>
+            <Link to='/fan'>Вентиляторы</Link>      
         </div>
     )
 }
