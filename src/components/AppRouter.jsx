@@ -10,11 +10,13 @@ import Ram from '../pages/Ram';
 import Storage from '../pages/Storage';
 import Fan from '../pages/Fan';
 import Motherboard from '../pages/Motherboard';
+import Pc from '../pages/Pc';
 
 const AppRouter = () => {
     return (
         <Routes>
             <Route path='/about' element={<About/>} key="/about"/>
+            <Route exact path='/pc' element={<Pc/>} key="/pc"/>
             <Route exact path='/body' element={<Body/>} key="/body"/>
             <Route exact path='/cpu' element={<Cpu/>} key="/cpu"/>
             <Route exact path='/cpufan' element={<CpuFan/>} key="/cpufan"/>
