@@ -26,7 +26,7 @@ const PcList = ({elements, removeElement}) => {
         <div>
             {elements.map((e, index) => {
             return (
-                <div key={index}>, 
+                <div key={index}> 
                 Компьютер: id {e.id}
                 [{e.specification}] 
                 [cpuId {e.cpuId}, gpuId {e.gpuId}, cpuFanId {e.cpuFanId}

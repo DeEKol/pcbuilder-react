@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import StorageService from '../API/StorageService';
 import { useSubmitForm } from '../hooks/useSubmitForm';
 
 const StorageForm = ({createElement}) => {
-    const [storage, setStorage] = useState({ id: '', description: '', buy: '', sale: '', maker: '', name: '', specification: '', type: '', capacity: '' });
-
+    const [storage, setStorage] = useState({ 
+        id: '', 
+        description: '', 
+        buy: '', 
+        sale: '', 
+        maker: '', 
+        name: '', 
+        specification: '', 
+        type: '', 
+        capacity: '' 
+    });
+    
     const submitHandler = useSubmitForm(storage, setStorage, StorageService, createElement);
 
     return (
